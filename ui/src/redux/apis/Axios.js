@@ -1,5 +1,5 @@
 import axios from "axios";
 const Axios = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "https://netflix-clone-super-server.onrender.com/api",
 });
 export default Axios;
