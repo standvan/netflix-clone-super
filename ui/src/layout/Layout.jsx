@@ -3,11 +3,11 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import MobileFooter from "../components/MobileFooter";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, setQuery, query }) => {
   return (
     <>
       <div className="bg-main text-white">
-        <Navbar></Navbar>
+        <Navbar setQuery={setQuery} query={query}></Navbar>
         {children}
         <Footer></Footer>
         <MobileFooter></MobileFooter>

@@ -4,6 +4,7 @@ import Movie from "./Movie";
 import Title from "./Title";
 import Empty from "./Empty";
 import { useSelector } from "react-redux";
+import Loading from "../components/Loading";
 
 const PopularMovies = ({ movies }) => {
   const movieState = useSelector((state) => state.movie);
@@ -16,7 +17,7 @@ const PopularMovies = ({ movies }) => {
             <Movie movie={movie} key={index}></Movie>
           ))
         ) : (
-          <Empty />
+          <Loading />
         )}
       </div>
     </div>

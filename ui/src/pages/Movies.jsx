@@ -17,6 +17,7 @@ const Movies = () => {
   const [pages, setPages] = useState(1);
   const movieState = useSelector((state) => state.movie);
   const userState = useSelector((state) => state.user);
+  const location = useLocation();
   const [query, setQuery] = useState({
     category: "",
     pageNumber: 1,
@@ -25,21 +26,29 @@ const Movies = () => {
     year: "",
     search: "",
   });
-  const location = useLocation();
-  const search = new URLSearchParams(location.search).get("search");
+  const [isLocationLoaded, setIsLocationLoaded] = useState(false);
+
   useEffect(() => {
-    setQuery((prev) => ({ ...prev, search: search }));
-  }, [search]);
+    if (location.state) {
+      setQuery({ ...query, search: location.state.search });
+    } else {
+      setQuery({ ...query, search: "" });
+    }
+    setIsLocationLoaded(true);
+  }, [location.state]);
+
   useEffect(() => {
-    dispatch(getAllMoviesByQueryAction(query)).then((result) => {
-      if (result.error) {
-        toast.error(result.payload.message);
-      } else {
-        setMovieData(result.payload.movies);
-        setTotalMovies(result.payload.totalMovies);
-        setPages(result.payload.pages);
-      }
-    });
+    if (isLocationLoaded) {
+      dispatch(getAllMoviesByQueryAction(query)).then((result) => {
+        if (result.error) {
+          toast.error(result.payload.message);
+        } else {
+          setMovieData(result.payload.movies);
+          setTotalMovies(result.payload.totalMovies);
+          setPages(result.payload.pages);
+        }
+      });
+    }
   }, [query, useState.isAddFavoriting, userState.isLoading]);
   return (
     <Layout setQuery={setQuery} query={query}>

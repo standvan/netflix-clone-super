@@ -55,15 +55,15 @@ const Footer = () => {
         },
         {
           title: "My Favorites",
-          link: "/favorites",
+          link: "/favorites-movies",
         },
         {
           title: "Profile",
-          link: "/profile",
+          link: "/update-pro",
         },
         {
           title: "Change Password",
-          link: "/changepass",
+          link: "/change-password",
         },
       ],
     },

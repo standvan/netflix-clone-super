@@ -6,7 +6,7 @@ import { CgUser } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavoriteMoviesAction } from "../redux/slice/userSlice";
 
-const Navbar = () => {
+const Navbar = ({ setQuery, query }) => {
   const Hover = "hover:text-subMain transitions text-white";
   const infoUser = JSON.parse(localStorage.getItem("infoUser"));
   const dispatch = useDispatch();
@@ -15,15 +15,14 @@ const Navbar = () => {
     JSON.parse(localStorage.getItem("favoritedMovies")) || [];
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const isMoviesPage = location.pathname === "/movies";
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(`/movies?search=${search}`);
-    if (search) {
-      setSearch(search);
-    }
+    navigate(`/movies`, { state: { search: search } });
   };
   useEffect(() => {
     dispatch(getFavoriteMoviesAction()).then((result) => {
